@@ -10,8 +10,6 @@ import (
 	"strings"
 	"time"
 
-	"tui-roguelike/internal/logdog"
-
 	"github.com/charmbracelet/bubbles/key"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
@@ -1155,7 +1153,6 @@ Press R to restart or Q to quit.
 }
 
 func main() {
-	logdog.Info("Starting Mini Roguelike...")
 	// Check if save file exists and offer to load
 	if _, err := os.Stat(SAVE_FILE); err == nil {
 		fmt.Println("Save file found! Loading existing game...")
