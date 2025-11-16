@@ -1,6 +1,5 @@
 roguelike_save.json
-internal
-internal/logdog
-logdog
-logdog/logs
+logdog/
+client
+server
 tui-roguelike

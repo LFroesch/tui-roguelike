@@ -1,0 +1,82 @@
+# Game Configuration
+game:
+  map_width: 35
+  map_height: 12
+  sight_radius: 5
+  save_file: "roguelike_save.json"
+
+# World Generation
+world:
+  max_rooms: 6
+  min_room_width: 4
+  max_room_width: 9
+  min_room_height: 3
+  max_room_height: 6
+  room_attempts: 50
+  enemy_spawn_chance: 0.7
+  treasure_spawn_chance: 0.4
+
+# Player Starting Stats
+player:
+  hp: 20
+  attack: 10
+  defense: 5
+  speed: 6
+  luck: 4
+  max_xp: 100
+
+# Leveling
+leveling:
+  xp_per_level: 50
+  hp_gain_min: 3
+  hp_gain_max: 8
+  attack_gain: 2
+  defense_gain: 1
+
+# Creatures
+creatures:
+  goblin:
+    symbol: 'G'
+    name: "Goblin"
+    hp_min: 5
+    hp_max: 15
+    attack_min: 3
+    attack_max: 8
+    defense_min: 1
+    defense_max: 4
+    speed_min: 3
+    speed_max: 6
+    xp_reward_min: 10
+    xp_reward_max: 30
+    gold_reward_min: 5
+    gold_reward_max: 20
+    spawn_weight: 0.6
+
+  skeleton:
+    symbol: 'S'
+    name: "Skeleton"
+    hp_min: 8
+    hp_max: 18
+    attack_min: 5
+    attack_max: 10
+    defense_min: 1
+    defense_max: 4
+    speed_min: 3
+    speed_max: 6
+    xp_reward_min: 10
+    xp_reward_max: 30
+    gold_reward_min: 5
+    gold_reward_max: 20
+    spawn_weight: 0.4
+
+# Server Settings
+server:
+  port: 8080
+  tick_rate: 100 # milliseconds (10 TPS)
+  max_players: 100
+
+# Database Settings (MongoDB)
+database:
+  uri: "mongodb://localhost:27017"
+  name: "roguelike"
+  timeout: 10 # seconds
