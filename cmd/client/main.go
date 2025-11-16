@@ -74,11 +74,19 @@ func initialModel(cfg *config.Config) Model {
 	return m
 }
 
-// generateLevel generates a new dungeon level
+// generateLevel generates a new dungeon level using static maps
 func (m *Model) generateLevel() {
-	rooms := m.dungeon.Generate(m.state)
-	m.spawner.SpawnEnemies(m.state, rooms)
-	m.spawner.SpawnTreasure(m.state, rooms)
+	// Get the static map for current floor
+	staticMap := world.GetStaticMap(m.state.Floor)
+
+	// Load the map layout
+	world.LoadStaticMap(m.state, staticMap)
+
+	// Spawn enemies and items at predefined positions
+	m.spawner.SpawnEnemiesAtPositions(m.state, staticMap.GetEnemySpawns())
+	m.spawner.SpawnTreasureAtPositions(m.state, staticMap.GetItemSpawns())
+
+	// Update visibility
 	m.visibility.UpdateVisibility(m.state)
 }
 

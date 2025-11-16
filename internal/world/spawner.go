@@ -118,6 +118,30 @@ func (s *Spawner) randomItem() game.Item {
 	return items[s.Rand.Intn(len(items))]
 }
 
+// SpawnEnemiesAtPositions spawns enemies at specific positions (for static maps)
+func (s *Spawner) SpawnEnemiesAtPositions(state *game.GameState, positions []game.Position) {
+	state.Enemies = []*game.Entity{}
+
+	for _, pos := range positions {
+		enemy := s.createRandomEnemy(pos)
+		state.Enemies = append(state.Enemies, enemy)
+	}
+}
+
+// SpawnTreasureAtPositions spawns treasure at specific positions (for static maps)
+func (s *Spawner) SpawnTreasureAtPositions(state *game.GameState, positions []game.Position) {
+	state.Items = []game.Item{}
+	state.ItemPos = []game.Position{}
+
+	for _, pos := range positions {
+		state.DungeonMap[pos.Y][pos.X] = TileTreasure
+
+		item := s.randomItem()
+		state.Items = append(state.Items, item)
+		state.ItemPos = append(state.ItemPos, pos)
+	}
+}
+
 // GetReward calculates enemy kill rewards
 func (s *Spawner) GetReward(creatureType string) (xp int, gold int) {
 	cfg, ok := s.Config.Creatures[creatureType]
