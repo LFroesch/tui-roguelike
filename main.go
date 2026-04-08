@@ -7,6 +7,8 @@ import (
 	"math"
 	"math/rand"
 	"os"
+	"os/user"
+	"path/filepath"
 	"strings"
 	"time"
 
@@ -16,12 +18,21 @@ import (
 )
 
 // Game constants
-const (
+var (
 	MAP_WIDTH    = 35
 	MAP_HEIGHT   = 12
 	SIGHT_RADIUS = 5
-	SAVE_FILE    = "roguelike_save.json"
+	homeDir      = getHomeDir()
+	SAVE_FILE    = filepath.Join(homeDir, ".local", "share", "tui-hub", "roguelike_save.json")
 )
+
+func getHomeDir() string {
+	usr, err := user.Current()
+	if err != nil {
+		return "."
+	}
+	return usr.HomeDir
+}
 
 // Tile types
 const (
@@ -413,7 +424,7 @@ func (m *Model) updateVisibility() {
 	for y := 0; y < MAP_HEIGHT; y++ {
 		for x := 0; x < MAP_WIDTH; x++ {
 			dist := math.Sqrt(float64((x-px)*(x-px) + (y-py)*(y-py)))
-			if dist <= SIGHT_RADIUS {
+			if dist <= float64(SIGHT_RADIUS) {
 				if m.hasLineOfSight(px, py, x, y) {
 					m.state.Visible[y][x] = true
 					m.state.Explored[y][x] = true
